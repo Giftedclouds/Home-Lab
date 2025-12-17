@@ -6,5 +6,9 @@ data:
   config.yaml: |
     tunnel: {{ .Values.cloudflared.tunnelId }}
     credentials-file: /etc/cloudflared/creds/credentials.json
+{{- if .Values.cloudflared.config }}
+{{- if .Values.cloudflared.config.ingress }}
     ingress:
 {{ toYaml .Values.cloudflared.config.ingress | indent 6 }}
+{{- end }}
+{{- end }}
