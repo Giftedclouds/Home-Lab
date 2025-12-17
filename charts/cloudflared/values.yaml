@@ -1,42 +1,33 @@
 replicaCount: 1
 
-
 image:
-repository: cloudflare/cloudflared
-tag: latest
-pullPolicy: IfNotPresent
-
+  repository: cloudflare/cloudflared
+  tag: latest
+  pullPolicy: IfNotPresent
 
 cloudflared:
-tunnelName: homelab-tunnel
-tunnelId: c0d1ac69-3df6-4c5b-9bd9-01940c019e85
-credentialsSecret: cloudflared-credentials
-config:
-ingress:
- - hostname: argocd.trinidevops.com
-    service: http://argocd-server.argocd.svc.cluster.local:80
-
-  - hostname: code.trinidevops.com
-    service: http://127.0.0.1:8085
-
-  - hostname: talos-api.trinidevops.com
-    service: tcp://192.168.122.20:50000
-
-  - service: http_status:404
-
-
+  tunnelName: homelab-tunnel
+  tunnelId: c0d1ac69-3df6-4c5b-9bd9-01940c019e85
+  credentialsSecret: cloudflared-credentials
+  config:
+    ingress:
+      - hostname: argocd.trinidevops.com
+        service: http://argocd-server.argocd.svc.cluster.local:80
+      - hostname: code.trinidevops.com
+        service: http://127.0.0.1:8085
+      - hostname: talos-api.trinidevops.com
+        service: tcp://192.168.122.20:50000
+      - service: http_status:404
 
 resources:
-limits:
-cpu: 100m
-memory: 128Mi
-requests:
-cpu: 50m
-memory: 64Mi
-
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
 
 nodeSelector: {}
-
 
 tolerations: []
 
