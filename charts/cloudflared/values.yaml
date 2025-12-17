@@ -9,13 +9,21 @@ pullPolicy: IfNotPresent
 
 cloudflared:
 tunnelName: homelab-tunnel
-tunnelId: "REPLACE_WITH_TUNNEL_ID"
+tunnelId: c0d1ac69-3df6-4c5b-9bd9-01940c019e85
 credentialsSecret: cloudflared-credentials
 config:
 ingress:
-- hostname: example.yourdomain.com
-service: http://your-service.namespace.svc.cluster.local:80
-- service: http_status:404
+ - hostname: argocd.trinidevops.com
+    service: http://argocd-server.argocd.svc.cluster.local:80
+
+  - hostname: code.trinidevops.com
+    service: http://127.0.0.1:8085
+
+  - hostname: talos-api.trinidevops.com
+    service: tcp://192.168.122.20:50000
+
+  - service: http_status:404
+
 
 
 resources:
