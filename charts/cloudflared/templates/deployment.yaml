@@ -23,7 +23,9 @@ spec:
             - tunnel
             - --config
             - /etc/cloudflared/config.yaml
+            - {{ .Values.cloudflared.metrics }}
             - run
+            - --metrics
           volumeMounts:
             - name: config
               mountPath: /etc/cloudflared
@@ -40,3 +42,16 @@ spec:
           secret:
             secretName: {{ .Values.cloudflared.credentialsSecret }}
 
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: 2000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 2000
+            initialDelaySeconds: 5
+            periodSeconds: 5

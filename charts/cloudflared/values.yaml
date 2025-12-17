@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: cloudflare/cloudflared
@@ -32,3 +32,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+cloudflared:
+  metrics: 0.0.0.0:2000
+
