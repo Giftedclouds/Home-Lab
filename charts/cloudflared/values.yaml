@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
 
 cloudflared:
-  tunnelName: homelab-tunnel
+  tunnelName: talos-homelab
   tunnelId: c0d1ac69-3df6-4c5b-9bd9-01940c019e85
   credentialsSecret: cloudflared-credentials
   config:
