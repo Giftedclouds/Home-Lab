@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/Giftedclouds/Home-Lab.git
     targetRevision: main
-    path: apps/cloudflared
+    path: argocd/applications
 
     helm:
       valueFiles:
