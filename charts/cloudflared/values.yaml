@@ -1,30 +1,35 @@
-tunnelConfig:
-  name: talos-homelab
+replicaCount: 1
 
-tunnelSecrets:
-  existingConfigJsonFileSecret:
-    name: config-json-file-secret
-  existingPemFileSecret:
-    name: cert-pem-file-secret
 
+image:
+repository: cloudflare/cloudflared
+tag: latest
+pullPolicy: IfNotPresent
+
+
+cloudflared:
+tunnelName: homelab-tunnel
+tunnelId: "REPLACE_WITH_TUNNEL_ID"
+credentialsSecret: cloudflared-credentials
+config:
 ingress:
-  - hostname: argocd.trinidevops.com
-    service: http://argocd-server.argocd.svc.cluster.local:80
-
-  - hostname: code.trinidevops.com
-    service: http://127.0.0.1:8085
-
-  - hostname: talos-api.trinidevops.com
-    service: tcp://192.168.122.20:50000
-
-  - service: http_status:404
-
-containerSecurityContext:
-  runAsNonRoot: true
-  allowPrivilegeEscalation: false
-  capabilities:
-    drop: ["ALL"]
-  seccompProfile:
-    type: RuntimeDefault
+- hostname: example.yourdomain.com
+service: http://your-service.namespace.svc.cluster.local:80
+- service: http_status:404
 
 
+resources:
+limits:
+cpu: 100m
+memory: 128Mi
+requests:
+cpu: 50m
+memory: 64Mi
+
+
+nodeSelector: {}
+
+
+tolerations: []
+
+affinity: {}

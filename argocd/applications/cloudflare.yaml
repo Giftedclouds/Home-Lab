@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/Giftedclouds/Home-Lab.git
     targetRevision: main
-    path: charts/cloudflared 
+    path: charts/cloudflared
 
     helm:
       valueFiles:
