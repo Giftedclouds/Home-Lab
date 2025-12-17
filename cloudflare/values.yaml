@@ -1,0 +1,29 @@
+tunnelConfig:
+  name: talos-homelab
+
+tunnelSecrets:
+  existingConfigJsonFileSecret:
+    name: config-json-file-secret
+  existingPemFileSecret:
+    name: cert-pem-file-secret
+
+ingress:
+  - hostname: argocd.trinidevops.com
+    service: http://argocd-server.argocd.svc.cluster.local:80
+
+  - hostname: code.trinidevops.com
+    service: http://127.0.0.1:8085
+
+  - hostname: talos-api.trinidevops.com
+    service: tcp://192.168.122.20:50000
+
+  - service: http_status:404
+
+containerSecurityContext:
+  runAsNonRoot: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: RuntimeDefault
+
