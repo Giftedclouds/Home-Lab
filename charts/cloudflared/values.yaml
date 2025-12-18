@@ -9,6 +9,7 @@ cloudflared:
   tunnelName: talos-homelab
   tunnelId: c0d1ac69-3df6-4c5b-9bd9-01940c019e85
   credentialsSecret: cloudflared-credentials
+  metrics: 0.0.0.0:2000
   config:
     ingress:
       - hostname: argocd.trinidevops.com
@@ -33,6 +34,5 @@ tolerations: []
 
 affinity: {}
 
-cloudflared:
-  metrics: 0.0.0.0:2000
+
 
