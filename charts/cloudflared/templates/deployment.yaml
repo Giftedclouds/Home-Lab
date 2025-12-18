@@ -14,7 +14,7 @@ spec:
       labels:
         app: {{ include "cloudflared.name" . }}
     spec:
-      serviceAccountName: {{ include "cloudflared.serviceAccountName" . }}
+      serviceAccountName: {{ include "cloudflared.fullname" . }}
       containers:
         - name: cloudflared
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -23,9 +23,9 @@ spec:
             - tunnel
             - --config
             - /etc/cloudflared/config.yaml
-            - {{ .Values.cloudflared.metrics }}
             - run
             - --metrics
+            - {{ .Values.cloudflared.metrics }}
           volumeMounts:
             - name: config
               mountPath: /etc/cloudflared
@@ -34,6 +34,18 @@ spec:
               readOnly: true
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: 2000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 2000
+            initialDelaySeconds: 5
+            periodSeconds: 5
       volumes:
         - name: config
           configMap:
@@ -41,17 +53,3 @@ spec:
         - name: creds
           secret:
             secretName: {{ .Values.cloudflared.credentialsSecret }}
-
-          livenessProbe:
-            httpGet:
-              path: /ready
-              port: 2000
-            initialDelaySeconds: 10
-            periodSeconds: 10
-
-          readinessProbe:
-            httpGet:
-              path: /ready
-              port: 2000
-            initialDelaySeconds: 5
-            periodSeconds: 5
